@@ -105,7 +105,7 @@ flowchart TD
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/tanktrace.git
+git clone https://github.com/Arulraj2001/tanktrace.git
 cd tanktrace
 ```
 

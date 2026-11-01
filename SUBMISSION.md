@@ -12,7 +12,7 @@
 | **Submission Title** | TankTrace: Mapping Tamil Nadu's Hidden Water Network with Amazon Location Service |
 | **Short Description** | An interactive geospatial exploration platform mapping 64,493 verified water bodies and ancient cascading tank (*Eri*) systems across Tamil Nadu using Amazon Location Service, Amazon S3, and AWS Amplify. |
 | **Live Application URL** | `https://main.d1abcdefghijklmn.amplifyapp.com` *(Replace with your deployed Amplify URL)* |
-| **GitHub Repository URL**| `https://github.com/your-username/tanktrace` *(Replace with your public repository URL)* |
+| **GitHub Repository URL**| `https://github.com/Arulraj2001/tanktrace` |
 | **Demo Video URL** | `https://youtu.be/your-video-id` *(Replace with your unlisted/public video link, under 3 mins)* |
 | **Primary AWS Services**| Amazon Location Service, Amazon Simple Storage Service (S3), AWS Amplify Hosting |
 | **Tags** | `aws-location-service`, `geospatial`, `amplify`, `s3`, `react`, `vite`, `map-it-challenge`, `opendata` |
