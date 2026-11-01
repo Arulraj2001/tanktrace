@@ -41,7 +41,7 @@
       "veg_pct": 1.5,
       "largest_waterbody": {
         "id": 49327,
-        "name": "Tank/Pond #49327",
+        "name": "",
         "area_ha": 460.9,
         "lat": 10.99009,
         "lon": 79.18891,
@@ -59,7 +59,7 @@
       "veg_pct": 1.2,
       "largest_waterbody": {
         "id": 52983,
-        "name": "Lake/Pond #52983",
+        "name": "",
         "area_ha": 69.88,
         "lat": 13.11864,
         "lon": 80.26983,
@@ -77,7 +77,7 @@
       "veg_pct": 2.2,
       "largest_waterbody": {
         "id": 9021,
-        "name": "Reservoir/Barrage #9021",
+        "name": "",
         "area_ha": 807.37,
         "lat": 10.40262,
         "lon": 77.25593,
@@ -95,7 +95,7 @@
       "veg_pct": 3.0,
       "largest_waterbody": {
         "id": 45241,
-        "name": "Lake/Pond #45241",
+        "name": "",
         "area_ha": 2534.86,
         "lat": 11.3323,
         "lon": 79.53256,
@@ -113,7 +113,7 @@
       "veg_pct": 2.2,
       "largest_waterbody": {
         "id": 40579,
-        "name": "Reservoir/Barrage #40579",
+        "name": "",
         "area_ha": 790.07,
         "lat": 12.49464,
         "lon": 78.17521,
@@ -131,7 +131,7 @@
       "veg_pct": 1.2,
       "largest_waterbody": {
         "id": 8962,
-        "name": "Reservoir/Barrage #8962",
+        "name": "",
         "area_ha": 536.15,
         "lat": 10.36973,
         "lon": 77.48976,
@@ -149,7 +149,7 @@
       "veg_pct": 2.1,
       "largest_waterbody": {
         "id": 38287,
-        "name": "Reservoir/Barrage #38287",
+        "name": "",
         "area_ha": 4220.47,
         "lat": 11.44897,
         "lon": 77.07647,
@@ -167,7 +167,7 @@
       "veg_pct": 13.5,
       "largest_waterbody": {
         "id": 52865,
-        "name": "Chembarambakkam Lake",
+        "name": "",
         "area_ha": 2278.53,
         "lat": 13.00743,
         "lon": 80.05281,
@@ -185,7 +185,7 @@
       "veg_pct": 1.5,
       "largest_waterbody": {
         "id": 13722,
-        "name": "Reservoir/Barrage #13722",
+        "name": "",
         "area_ha": 1405.98,
         "lat": 8.45806,
         "lon": 77.31922,
@@ -203,7 +203,7 @@
       "veg_pct": 2.8,
       "largest_waterbody": {
         "id": 11805,
-        "name": "Reservoir/Barrage #11805",
+        "name": "",
         "area_ha": 263.48,
         "lat": 10.82279,
         "lon": 78.29046,
@@ -221,7 +221,7 @@
       "veg_pct": 4.1,
       "largest_waterbody": {
         "id": 10720,
-        "name": "Tank/Pond #10720",
+        "name": "",
         "area_ha": 467.66,
         "lat": 9.89826,
         "lon": 78.23348,
@@ -239,7 +239,7 @@
       "veg_pct": 0.3,
       "largest_waterbody": {
         "id": 21742,
-        "name": "Tank/Pond #21742",
+        "name": "",
         "area_ha": 2703.83,
         "lat": 10.32578,
         "lon": 79.8243,
@@ -257,7 +257,7 @@
       "veg_pct": 4.6,
       "largest_waterbody": {
         "id": 40088,
-        "name": "Lake/Pond #40088",
+        "name": "",
         "area_ha": 147.71,
         "lat": 11.20527,
         "lon": 78.23485,
@@ -275,7 +275,7 @@
       "veg_pct": 7.3,
       "largest_waterbody": {
         "id": 38063,
-        "name": "Reservoir/Barrage #38063",
+        "name": "",
         "area_ha": 806.36,
         "lat": 11.41707,
         "lon": 76.57505,
@@ -293,7 +293,7 @@
       "veg_pct": 3.2,
       "largest_waterbody": {
         "id": 47603,
-        "name": "Tank/Pond #47603",
+        "name": "",
         "area_ha": 177.58,
         "lat": 11.3837,
         "lon": 79.05068,
@@ -311,7 +311,7 @@
       "veg_pct": 3.0,
       "largest_waterbody": {
         "id": 34415,
-        "name": "Tank/Pond #34415",
+        "name": "",
         "area_ha": 434.31,
         "lat": 10.37081,
         "lon": 78.77595,
@@ -329,7 +329,7 @@
       "veg_pct": 4.7,
       "largest_waterbody": {
         "id": 14878,
-        "name": "Lagoon #14878",
+        "name": "",
         "area_ha": 1196.93,
         "lat": 9.21752,
         "lon": 79.36592,
@@ -365,7 +365,7 @@
       "veg_pct": 2.6,
       "largest_waterbody": {
         "id": 16504,
-        "name": "Tank/Pond #16504",
+        "name": "",
         "area_ha": 323.0,
         "lat": 9.61977,
         "lon": 78.70723,
@@ -383,7 +383,7 @@
       "veg_pct": 1.6,
       "largest_waterbody": {
         "id": 20334,
-        "name": "Tank/Pond #20334",
+        "name": "",
         "area_ha": 261.84,
         "lat": 10.17955,
         "lon": 79.17755,
@@ -401,7 +401,7 @@
       "veg_pct": 7.3,
       "largest_waterbody": {
         "id": 8910,
-        "name": "Reservoir/Barrage #8910",
+        "name": "",
         "area_ha": 1572.75,
         "lat": 10.0513,
         "lon": 77.56613,
@@ -419,7 +419,7 @@
       "veg_pct": 8.5,
       "largest_waterbody": {
         "id": 64386,
-        "name": "Lagoon #64386",
+        "name": "",
         "area_ha": 4890.37,
         "lat": 13.47555,
         "lon": 80.27698,
@@ -437,7 +437,7 @@
       "veg_pct": 0.3,
       "largest_waterbody": {
         "id": 38028,
-        "name": "Lagoon #38028",
+        "name": "",
         "area_ha": 4030.13,
         "lat": 10.2999,
         "lon": 79.73054,
@@ -455,7 +455,7 @@
       "veg_pct": 6.6,
       "largest_waterbody": {
         "id": 13728,
-        "name": "Aquaculture Pond #13728",
+        "name": "",
         "area_ha": 966.53,
         "lat": 8.69225,
         "lon": 78.10602,
@@ -473,7 +473,7 @@
       "veg_pct": 3.1,
       "largest_waterbody": {
         "id": 46550,
-        "name": "Tank/Pond #46550",
+        "name": "",
         "area_ha": 294.13,
         "lat": 11.04956,
         "lon": 78.55863,
@@ -491,7 +491,7 @@
       "veg_pct": 4.6,
       "largest_waterbody": {
         "id": 2715,
-        "name": "Reservoir/Barrage #2715",
+        "name": "",
         "area_ha": 1004.31,
         "lat": 8.64084,
         "lon": 77.40657,
@@ -509,7 +509,7 @@
       "veg_pct": 15.4,
       "largest_waterbody": {
         "id": 64403,
-        "name": "Reservoir/Barrage #64403",
+        "name": "",
         "area_ha": 2197.48,
         "lat": 12.18328,
         "lon": 78.814,
@@ -527,7 +527,7 @@
       "veg_pct": 11.5,
       "largest_waterbody": {
         "id": 55684,
-        "name": "Lake/Pond #55684",
+        "name": "",
         "area_ha": 1277.16,
         "lat": 12.93468,
         "lon": 79.44497,
@@ -545,7 +545,7 @@
       "veg_pct": 7.8,
       "largest_waterbody": {
         "id": 48096,
-        "name": "Reservoir/Barrage #48096",
+        "name": "",
         "area_ha": 710.77,
         "lat": 11.80722,
         "lon": 78.97586,
@@ -563,7 +563,7 @@
       "veg_pct": 5.8,
       "largest_waterbody": {
         "id": 8212,
-        "name": "Tank/Pond #8212",
+        "name": "",
         "area_ha": 375.85,
         "lat": 9.50183,
         "lon": 78.27989,
@@ -574,6 +574,7 @@
   "total_area_sqkm": 6965.4,
   "data_source": "Space Applications Centre (SAC), ISRO / NWIC Hydrological Layer (SAC N)",
   "citation": "National Wetland Inventory and Assessment (NWIA), Space Applications Centre, ISRO & National Water Informatics Centre (NWIC)",
+  "district_derivation": "Derived via spatial point-in-polygon overlay of WGS84 coordinates against Survey of India / Census 2011 Tamil Nadu district boundaries.",
   "state": "Tamil Nadu",
   "rankings_by_count": [
     {
@@ -588,7 +589,7 @@
       "veg_pct": 3.0,
       "largest_waterbody": {
         "id": 34415,
-        "name": "Tank/Pond #34415",
+        "name": "",
         "area_ha": 434.31,
         "lat": 10.37081,
         "lon": 78.77595,
@@ -607,7 +608,7 @@
       "veg_pct": 2.6,
       "largest_waterbody": {
         "id": 16504,
-        "name": "Tank/Pond #16504",
+        "name": "",
         "area_ha": 323.0,
         "lat": 9.61977,
         "lon": 78.70723,
@@ -626,7 +627,7 @@
       "veg_pct": 13.5,
       "largest_waterbody": {
         "id": 52865,
-        "name": "Chembarambakkam Lake",
+        "name": "",
         "area_ha": 2278.53,
         "lat": 13.00743,
         "lon": 80.05281,
@@ -645,7 +646,7 @@
       "veg_pct": 4.7,
       "largest_waterbody": {
         "id": 14878,
-        "name": "Lagoon #14878",
+        "name": "",
         "area_ha": 1196.93,
         "lat": 9.21752,
         "lon": 79.36592,
@@ -664,7 +665,7 @@
       "veg_pct": 4.6,
       "largest_waterbody": {
         "id": 2715,
-        "name": "Reservoir/Barrage #2715",
+        "name": "",
         "area_ha": 1004.31,
         "lat": 8.64084,
         "lon": 77.40657,
@@ -683,7 +684,7 @@
       "veg_pct": 0.3,
       "largest_waterbody": {
         "id": 21742,
-        "name": "Tank/Pond #21742",
+        "name": "",
         "area_ha": 2703.83,
         "lat": 10.32578,
         "lon": 79.8243,
@@ -702,7 +703,7 @@
       "veg_pct": 8.5,
       "largest_waterbody": {
         "id": 64386,
-        "name": "Lagoon #64386",
+        "name": "",
         "area_ha": 4890.37,
         "lat": 13.47555,
         "lon": 80.27698,
@@ -721,7 +722,7 @@
       "veg_pct": 0.3,
       "largest_waterbody": {
         "id": 38028,
-        "name": "Lagoon #38028",
+        "name": "",
         "area_ha": 4030.13,
         "lat": 10.2999,
         "lon": 79.73054,
@@ -740,7 +741,7 @@
       "veg_pct": 7.8,
       "largest_waterbody": {
         "id": 48096,
-        "name": "Reservoir/Barrage #48096",
+        "name": "",
         "area_ha": 710.77,
         "lat": 11.80722,
         "lon": 78.97586,
@@ -759,7 +760,7 @@
       "veg_pct": 4.1,
       "largest_waterbody": {
         "id": 10720,
-        "name": "Tank/Pond #10720",
+        "name": "",
         "area_ha": 467.66,
         "lat": 9.89826,
         "lon": 78.23348,
@@ -778,7 +779,7 @@
       "veg_pct": 11.5,
       "largest_waterbody": {
         "id": 55684,
-        "name": "Lake/Pond #55684",
+        "name": "",
         "area_ha": 1277.16,
         "lat": 12.93468,
         "lon": 79.44497,
@@ -797,7 +798,7 @@
       "veg_pct": 15.4,
       "largest_waterbody": {
         "id": 64403,
-        "name": "Reservoir/Barrage #64403",
+        "name": "",
         "area_ha": 2197.48,
         "lat": 12.18328,
         "lon": 78.814,
@@ -816,7 +817,7 @@
       "veg_pct": 5.8,
       "largest_waterbody": {
         "id": 8212,
-        "name": "Tank/Pond #8212",
+        "name": "",
         "area_ha": 375.85,
         "lat": 9.50183,
         "lon": 78.27989,
@@ -835,7 +836,7 @@
       "veg_pct": 2.2,
       "largest_waterbody": {
         "id": 40579,
-        "name": "Reservoir/Barrage #40579",
+        "name": "",
         "area_ha": 790.07,
         "lat": 12.49464,
         "lon": 78.17521,
@@ -854,7 +855,7 @@
       "veg_pct": 3.1,
       "largest_waterbody": {
         "id": 46550,
-        "name": "Tank/Pond #46550",
+        "name": "",
         "area_ha": 294.13,
         "lat": 11.04956,
         "lon": 78.55863,
@@ -873,7 +874,7 @@
       "veg_pct": 1.6,
       "largest_waterbody": {
         "id": 20334,
-        "name": "Tank/Pond #20334",
+        "name": "",
         "area_ha": 261.84,
         "lat": 10.17955,
         "lon": 79.17755,
@@ -892,7 +893,7 @@
       "veg_pct": 3.0,
       "largest_waterbody": {
         "id": 45241,
-        "name": "Lake/Pond #45241",
+        "name": "",
         "area_ha": 2534.86,
         "lat": 11.3323,
         "lon": 79.53256,
@@ -911,7 +912,7 @@
       "veg_pct": 1.2,
       "largest_waterbody": {
         "id": 8962,
-        "name": "Reservoir/Barrage #8962",
+        "name": "",
         "area_ha": 536.15,
         "lat": 10.36973,
         "lon": 77.48976,
@@ -930,7 +931,7 @@
       "veg_pct": 1.5,
       "largest_waterbody": {
         "id": 13722,
-        "name": "Reservoir/Barrage #13722",
+        "name": "",
         "area_ha": 1405.98,
         "lat": 8.45806,
         "lon": 77.31922,
@@ -949,7 +950,7 @@
       "veg_pct": 6.6,
       "largest_waterbody": {
         "id": 13728,
-        "name": "Aquaculture Pond #13728",
+        "name": "",
         "area_ha": 966.53,
         "lat": 8.69225,
         "lon": 78.10602,
@@ -968,7 +969,7 @@
       "veg_pct": 2.2,
       "largest_waterbody": {
         "id": 9021,
-        "name": "Reservoir/Barrage #9021",
+        "name": "",
         "area_ha": 807.37,
         "lat": 10.40262,
         "lon": 77.25593,
@@ -987,7 +988,7 @@
       "veg_pct": 1.5,
       "largest_waterbody": {
         "id": 49327,
-        "name": "Tank/Pond #49327",
+        "name": "",
         "area_ha": 460.9,
         "lat": 10.99009,
         "lon": 79.18891,
@@ -1006,7 +1007,7 @@
       "veg_pct": 2.1,
       "largest_waterbody": {
         "id": 38287,
-        "name": "Reservoir/Barrage #38287",
+        "name": "",
         "area_ha": 4220.47,
         "lat": 11.44897,
         "lon": 77.07647,
@@ -1025,7 +1026,7 @@
       "veg_pct": 3.2,
       "largest_waterbody": {
         "id": 47603,
-        "name": "Tank/Pond #47603",
+        "name": "",
         "area_ha": 177.58,
         "lat": 11.3837,
         "lon": 79.05068,
@@ -1044,7 +1045,7 @@
       "veg_pct": 2.8,
       "largest_waterbody": {
         "id": 11805,
-        "name": "Reservoir/Barrage #11805",
+        "name": "",
         "area_ha": 263.48,
         "lat": 10.82279,
         "lon": 78.29046,
@@ -1082,7 +1083,7 @@
       "veg_pct": 4.6,
       "largest_waterbody": {
         "id": 40088,
-        "name": "Lake/Pond #40088",
+        "name": "",
         "area_ha": 147.71,
         "lat": 11.20527,
         "lon": 78.23485,
@@ -1101,7 +1102,7 @@
       "veg_pct": 7.3,
       "largest_waterbody": {
         "id": 8910,
-        "name": "Reservoir/Barrage #8910",
+        "name": "",
         "area_ha": 1572.75,
         "lat": 10.0513,
         "lon": 77.56613,
@@ -1120,7 +1121,7 @@
       "veg_pct": 7.3,
       "largest_waterbody": {
         "id": 38063,
-        "name": "Reservoir/Barrage #38063",
+        "name": "",
         "area_ha": 806.36,
         "lat": 11.41707,
         "lon": 76.57505,
@@ -1139,7 +1140,7 @@
       "veg_pct": 1.2,
       "largest_waterbody": {
         "id": 52983,
-        "name": "Lake/Pond #52983",
+        "name": "",
         "area_ha": 69.88,
         "lat": 13.11864,
         "lon": 80.26983,
@@ -1149,7 +1150,7 @@
   ],
   "historical_context": {
     "tradition": "Eri Cascading System",
-    "antiquity": "1,000+ years (Pallava, Chola, and Pandya dynasties)",
+    "antiquity": "Over 1,000 years (documented across Pallava, Chola, and Pandya epigraphy)",
     "hydrological_mechanism": "Cascading tanks where runoff from upper ridge tanks overflows into downstream tanks via supply channels (Varathu Vaikkal) and surplus weirs (Kalingu), creating an interconnected hydrological chain.",
     "man_made_dominance": "97.1% of all recorded water bodies in Tamil Nadu are man-made tanks, reflecting an extraordinary community-engineered rainwater harvesting legacy.",
     "top_eri_districts": [

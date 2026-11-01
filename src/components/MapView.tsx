@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import L from 'leaflet';
 import { 
   WaterbodyFeature, 
@@ -41,6 +41,9 @@ export const MapView: React.FC<MapViewProps> = ({
   const districtLayerRef = useRef<L.GeoJSON | null>(null);
   const waterbodiesLayerRef = useRef<L.LayerGroup | null>(null);
   const canvasRendererRef = useRef<L.Canvas | null>(null);
+
+  const [mapBounds, setMapBounds] = useState<L.LatLngBounds | null>(null);
+  const [zoomLevel, setZoomLevel] = useState<number>(7);
 
   // Helper to color water bodies by type
   const getTypeColor = (type: string): string => {
@@ -93,7 +96,17 @@ export const MapView: React.FC<MapViewProps> = ({
     canvasRendererRef.current = L.canvas({ padding: 0.5 });
     mapInstanceRef.current = map;
 
+    // Track viewport for efficient LOD / viewport filtering
+    const updateViewport = () => {
+      setMapBounds(map.getBounds());
+      setZoomLevel(map.getZoom());
+    };
+
+    map.on('moveend zoomend', updateViewport);
+    updateViewport();
+
     return () => {
+      map.off('moveend zoomend', updateViewport);
       map.remove();
       mapInstanceRef.current = null;
     };
@@ -158,7 +171,7 @@ export const MapView: React.FC<MapViewProps> = ({
             <strong class="text-sky-300 font-semibold">${dName} District</strong><br/>
             <span class="text-slate-300">Water Bodies:</span> <b>${count?.toLocaleString()}</b><br/>
             <span class="text-slate-300">Total Water Area:</span> <b>${area?.toLocaleString()} ha</b><br/>
-            <span class="text-slate-400 text-[10px]">Eris: ${tanks} | Reservoirs: ${reservoirs}</span>
+            <span class="text-slate-400 text-[10px]">Tanks (Eris): ${tanks} | Reservoirs: ${reservoirs}</span>
           </div>
         `, { sticky: true, className: 'leaflet-custom-tooltip' });
 
@@ -197,6 +210,31 @@ export const MapView: React.FC<MapViewProps> = ({
     districtLayerRef.current = layer;
   }, [districts, showDistricts, selectedDistrict, onSelectDistrict]);
 
+  // Efficient Viewport-Filtered Waterbodies Set
+  const visibleWaterbodies = useMemo(() => {
+    if (!showWaterbodies || waterbodies.length === 0) return [];
+    if (!mapBounds) return waterbodies.slice(0, 10000);
+
+    const padLat = 0.2;
+    const padLon = 0.2;
+    const south = mapBounds.getSouth() - padLat;
+    const north = mapBounds.getNorth() + padLat;
+    const west = mapBounds.getWest() - padLon;
+    const east = mapBounds.getEast() + padLon;
+
+    // Filter strictly to viewport bounds
+    const inViewport = waterbodies.filter((wb) => 
+      wb.lat >= south && wb.lat <= north && wb.long >= west && wb.long <= east
+    );
+
+    // If statewide overview (zoom <= 8) with huge count, prioritize prominent structures
+    if (zoomLevel <= 8 && inViewport.length > 12000 && selectedDistrict === 'All') {
+      return inViewport.filter((wb) => wb.area_ha >= 3.0 || wb.type === 'Reservoir/Barrage' || Boolean(wb.name));
+    }
+
+    return inViewport;
+  }, [waterbodies, showWaterbodies, mapBounds, zoomLevel, selectedDistrict]);
+
   // Update Waterbodies Points Layer (HTML5 Canvas rendering for speed)
   useEffect(() => {
     const map = mapInstanceRef.current;
@@ -207,12 +245,12 @@ export const MapView: React.FC<MapViewProps> = ({
       waterbodiesLayerRef.current = null;
     }
 
-    if (!showWaterbodies || waterbodies.length === 0) return;
+    if (!showWaterbodies || visibleWaterbodies.length === 0) return;
 
     const layerGroup = L.layerGroup();
     const renderer = canvasRendererRef.current || L.canvas({ padding: 0.5 });
 
-    waterbodies.forEach((wb) => {
+    visibleWaterbodies.forEach((wb) => {
       const isSelected = selectedWaterbody?.id === wb.id;
       const radius = Math.max(3.5, Math.min(15, Math.sqrt(wb.area_ha || 1) * 1.2));
       const color = getTypeColor(wb.type);
@@ -226,9 +264,11 @@ export const MapView: React.FC<MapViewProps> = ({
         weight: isSelected ? 2.5 : 1
       });
 
+      const displayTitle = wb.name ? wb.name : `${wb.type} #${wb.id}`;
+
       marker.bindTooltip(`
         <div class="px-2 py-1 text-xs font-sans">
-          <div class="font-bold text-sky-300">${wb.name || `${wb.type} #${wb.id}`}</div>
+          <div class="font-bold text-sky-300">${displayTitle}</div>
           <div class="text-slate-300">Type: <span class="text-white">${wb.type}</span></div>
           <div class="text-slate-300">District: <span class="text-white">${wb.district}</span></div>
           <div class="text-slate-300">Area: <span class="text-sky-300 font-medium">${wb.area_ha.toFixed(1)} ha</span> (${(wb.area_ha * 2.471).toFixed(1)} acres)</div>
@@ -244,7 +284,7 @@ export const MapView: React.FC<MapViewProps> = ({
 
     layerGroup.addTo(map);
     waterbodiesLayerRef.current = layerGroup;
-  }, [waterbodies, showWaterbodies, selectedWaterbody, onSelectWaterbody]);
+  }, [visibleWaterbodies, showWaterbodies, selectedWaterbody, onSelectWaterbody]);
 
   // Handle FlyTo animations (triggered by Story Mode or feature selection)
   useEffect(() => {

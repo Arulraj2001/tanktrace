@@ -92,3 +92,4 @@ export interface AWSConfig {
 }
 
 export type BasemapProvider = 'aws-location' | 'carto-dark' | 'carto-light' | 'osm' | 'satellite';
+

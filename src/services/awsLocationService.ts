@@ -96,3 +96,4 @@ export const getTileLayerConfig = (provider: BasemapProvider, awsConfig: AWSConf
       };
   }
 };
+

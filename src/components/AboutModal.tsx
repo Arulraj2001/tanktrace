@@ -7,7 +7,9 @@ import {
   ShieldCheck, 
   Database, 
   Cpu,
-  Layers
+  Layers,
+  CheckCircle2,
+  AlertCircle
 } from 'lucide-react';
 import { AWSConfig } from '../types';
 
@@ -46,32 +48,52 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose, awsConfig }) =>
           {/* Mission Overview */}
           <div>
             <h4 className="text-sm font-semibold text-white mb-1.5 flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-sky-400" /> Project Overview
+              <MapPin className="w-4 h-4 text-sky-400" /> Project Purpose
             </h4>
             <p>
-              TankTrace maps and analyzes Tamil Nadu's traditional cascading water bodies (known historically as <i>Eris</i>), reservoirs, and wetland networks. Built for the AWS Builder Center "Weekend Challenge: Map It", the application reveals how ancient community water harvesting systems continue to form the backbone of peninsular India's hydrological resilience.
+              TankTrace maps and analyzes Tamil Nadu's traditional cascading water bodies (known historically as <i>Eris</i>), reservoirs, and wetland networks. Built for the AWS Builder Center "Weekend Challenge: Map It", the application reveals how ancient community rainwater harvesting systems continue to form the backbone of peninsular India's hydrological resilience.
             </p>
           </div>
 
-          {/* Authentic Dataset Verification */}
+          {/* Authentic Dataset Verification & Provenance */}
           <div className="bg-slate-950/70 p-4 rounded-xl border border-slate-800">
             <h4 className="text-sm font-semibold text-white mb-2 flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" /> Verified Dataset & Attribution
+              <ShieldCheck className="w-4 h-4 text-emerald-400" /> Dataset Verification & Provenance
             </h4>
             <p className="mb-2">
-              Every point and boundary in TankTrace originates from authentic, official geospatial datasets:
+              In accordance with strict scientific data integrity standards, every attribute in TankTrace is classified by its authentic origin:
             </p>
-            <ul className="space-y-1.5 list-disc list-inside text-slate-300">
-              <li>
-                <strong className="text-white">Water Bodies Inventory:</strong> Space Applications Centre (SAC), Indian Space Research Organisation (ISRO) & National Water Informatics Centre (NWIC), Ministry of Jal Shakti. Contains 64,493 verified water bodies mapped across Tamil Nadu.
-              </li>
-              <li>
-                <strong className="text-white">Attributes Captured:</strong> Surface area (ha), type classification (Tank/Pond, Reservoir, Lake, Wetland), man-made vs natural classification, turbidity index, aquatic vegetation, and exact geographic coordinates.
-              </li>
-              <li>
-                <strong className="text-white">Strict Compliance:</strong> No synthetic groundwater stress values, fabricated risk metrics, or fake markers are used.
-              </li>
-            </ul>
+            <div className="space-y-2 text-slate-300">
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <strong className="text-white">Source-Backed Attributes (SAC / ISRO & NWIC):</strong>
+                  <div className="text-[11px] text-slate-400 mt-0.5">
+                    Total feature count (64,493), WGS84 coordinates, surface area in hectares (summing to 696,537.9 ha), classification Level I (Inland/Coastal), Level II (Man-made/Natural), Level III (Tank/Pond, Lake, Reservoir), turbidity ratings (High, Moderate, Low), aquatic vegetation presence, and official names (e.g. Mettur Dam, Sholaiar, Parambikulam).
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <strong className="text-white">Derived Spatial Attributes (Geospatial Analysis):</strong>
+                  <div className="text-[11px] text-slate-400 mt-0.5">
+                    District classifications and district rankings (e.g., Pudukkottai, Sivaganga) are computed via ray-casting point-in-polygon spatial join against Census of India district polygons, as the raw source assigns records at state level (<code>state: "Tamil Nadu"</code>).
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <strong className="text-white">Strict Non-Fabrication Standard:</strong>
+                  <div className="text-[11px] text-slate-400 mt-0.5">
+                    No synthetic groundwater stress values, simulated drought risk indices, or artificial map markers are fabricated or claimed.
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* AWS Architecture */}
@@ -84,7 +106,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose, awsConfig }) =>
                 <Layers className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
                 <div>
                   <strong className="text-white block">Amazon Location Service:</strong>
-                  <span>Provides secure, performant map tiles. Configurable via <code>VITE_AWS_LOCATION_API_KEY</code> and <code>VITE_AWS_LOCATION_MAP_NAME</code>. Current status: </span>
+                  <span>Streams secure, high-contrast map tiles. Configurable through environment variables (<code>VITE_AWS_LOCATION_API_KEY</code>, <code>VITE_AWS_LOCATION_MAP_NAME</code>). Current status: </span>
                   <span className={`font-semibold ${awsConfig.isConfigured ? 'text-emerald-400' : 'text-sky-400'}`}>
                     {awsConfig.isConfigured ? 'Connected to AWS Location' : 'Using graceful OpenStreetMap / Carto fallback (AWS Ready)'}
                   </span>
@@ -95,7 +117,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose, awsConfig }) =>
                 <Database className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
                 <div>
                   <strong className="text-white block">Amazon Simple Storage Service (S3):</strong>
-                  <span>Hosts processed geospatial datasets (GeoJSON and binary compact records) for global edge distribution via S3 bucket endpoints (<code>VITE_S3_DATA_URL</code>).</span>
+                  <span>Stores pre-processed geospatial records (<code>tn_waterbodies_all.json</code>, <code>tn_districts.geojson</code>) for rapid edge delivery with automated local fallback.</span>
                 </div>
               </div>
 
@@ -103,19 +125,19 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose, awsConfig }) =>
                 <Cpu className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
                 <div>
                   <strong className="text-white block">AWS Amplify Hosting:</strong>
-                  <span>Continuous deployment and edge hosting via <code>amplify.yml</code> build specifications.</span>
+                  <span>CI/CD pipeline and automated edge hosting configured via <code>amplify.yml</code>.</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Traditional Hydrological Heritage */}
+          {/* Hydrological Significance */}
           <div>
             <h4 className="text-sm font-semibold text-white mb-1.5">
-              The Hydrological Significance of the Eri System
+              Hydrological Significance of the Eri Cascades
             </h4>
             <p>
-              Over <b>97.1% (62,639)</b> of all mapped water bodies in Tamil Nadu are man-made tanks. Built by Pallava, Chola, and Pandya dynasties over 1,000 years ago, these cascading systems capture monsoon torrents, slow down runoff, prevent severe soil erosion, and replenish unconfined aquifers across drought-prone plains.
+              Over <b>97.1% (62,639)</b> of all mapped water bodies in Tamil Nadu are man-made earthen tanks. Built across centuries by Pallava, Chola, and Pandya communities, these cascading systems capture monsoon torrents, slow down runoff, buffer floods, and replenish unconfined aquifers across drought-prone plains.
             </p>
           </div>
         </div>

@@ -5,7 +5,7 @@ import sys
 import time
 
 def main():
-    print("=== TankTrace Geospatial Processing Pipeline ===")
+    print("=== TankTrace Geospatial Processing Pipeline (Strict Data Integrity) ===")
     t_start = time.time()
 
     districts_file = 'tn_districts_raw.geojson'
@@ -84,7 +84,6 @@ def main():
 
     for feat in tn_district_feats:
         name = feat['properties'].get('NAME_2') or feat['properties'].get('district') or 'Unknown'
-        # Standardize name spelling
         name_clean = name.strip()
         if name_clean == 'Tirunelveli Kattabo':
             name_clean = 'Tirunelveli'
@@ -92,7 +91,6 @@ def main():
             name_clean = 'Kanchipuram'
         
         geom = feat['geometry']
-        # Compute bounds & centroid
         all_lons = []
         all_lats = []
         def collect_pts(c, gtype):
@@ -147,22 +145,14 @@ def main():
     district_names = sorted(list(set(district_names)))
     print(f"Standardized {len(districts)} districts.")
 
-    # Known famous water bodies in Tamil Nadu with historical names to enrich records if coordinates match
-    # Real coordinates of major historical eris and reservoirs
-    known_landmarks = [
-        {"name": "Veeranam Lake", "lat": 11.2828, "lon": 79.5442, "type": "Lake/Reservoir", "district": "Cuddalore", "hist": "Built in the 10th century by Rajaditya Chola; length 14 km."},
-        {"name": "Chembarambakkam Lake", "lat": 13.0117, "lon": 80.0578, "type": "Reservoir", "district": "Kanchipuram", "hist": "Ancient Pallava-era feeder lake serving the Adyar River and Chennai basin."},
-        {"name": "Madurantakam Tank", "lat": 12.5119, "lon": 79.8828, "type": "Tank/Pond", "district": "Kanchipuram", "hist": "Constructed by Uttama Chola (Madurantaka), protected by historic bunds."},
-        {"name": "Kaveripakkam Tank", "lat": 12.9067, "lon": 79.4678, "type": "Tank/Pond", "district": "Vellore", "hist": "One of the largest tanks built by the Pallavas in the Palar river basin."},
-        {"name": "Red Hills Lake (Puzhal)", "lat": 13.1950, "lon": 80.1764, "type": "Reservoir", "district": "Thiruvallur", "hist": "Key historical reservoir commissioned in 1876 connected to Jones Tower."},
-        {"name": "Poondi Reservoir", "lat": 13.1878, "lon": 79.8600, "type": "Reservoir", "district": "Thiruvallur", "hist": "Constructed across the Kosasthalaiyar river to regulate monsoon runoff."},
-        {"name": "Singanallur Lake", "lat": 10.9933, "lon": 77.0278, "type": "Lake/Pond", "district": "Coimbatore", "hist": "One of the 24 ancient lakes built during the medieval Kongu Chola era across Noyyal river."},
-        {"name": "Ukkadam Periyakulam", "lat": 10.9906, "lon": 76.9589, "type": "Lake/Pond", "district": "Coimbatore", "hist": "Ancient cascading feeder lake in Noyyal river basin."},
-        {"name": "Stanley Reservoir (Mettur)", "lat": 11.8014, "lon": 77.8017, "type": "Reservoir/Barrage", "district": "Salem", "hist": "Formed by Mettur Dam, the lifeblood of the Cauvery delta irrigation network."},
-        {"name": "Bhavanisagar Reservoir", "lat": 11.4706, "lon": 77.1139, "type": "Reservoir/Barrage", "district": "Erode", "hist": "Built across Bhavani river, regulating canal supply across Western Tamil Nadu."},
-        {"name": "Vaigai Reservoir", "lat": 10.0544, "lon": 77.5911, "type": "Reservoir/Barrage", "district": "Theni", "hist": "Primary irrigation storage for Madurai and Ramanathapuram cascading tanks."},
-        {"name": "Manimuthar Reservoir", "lat": 8.5833, "lon": 77.4167, "type": "Reservoir/Barrage", "district": "Tirunelveli", "hist": "Vital irrigation reservoir in the Thamirabarani river basin."},
-        {"name": "Pechiparai Reservoir", "lat": 8.4417, "lon": 77.2917, "type": "Reservoir/Barrage", "district": "Kanniyakumari", "hist": "Built during the reign of Maharaja Moolam Thirunal across the Kodayar river."}
+    # Historical landmark references (Context only - strictly distinct from source data)
+    # These are external historical annotations for the educational guided tour
+    historical_landmarks = [
+        {"ref_name": "Veeranam Lake basin", "lat": 11.2828, "lon": 79.5442, "district": "Cuddalore", "note": "Built in the 10th century by Rajaditya Chola; length 14 km."},
+        {"ref_name": "Chembarambakkam Lake basin", "lat": 13.0117, "lon": 80.0578, "district": "Kanchipuram", "note": "Ancient Pallava-era feeder lake serving the Adyar River and Chennai basin."},
+        {"ref_name": "Madurantakam Tank basin", "lat": 12.5119, "lon": 79.8828, "district": "Kanchipuram", "note": "Constructed by Uttama Chola (Madurantaka), protected by historic bunds."},
+        {"ref_name": "Kaveripakkam Tank basin", "lat": 12.9067, "lon": 79.4678, "district": "Vellore", "note": "One of the largest tanks built by the Pallavas in the Palar river basin."},
+        {"ref_name": "Mettur Dam / Stanley Reservoir", "lat": 11.8915, "lon": 77.7995, "district": "Salem", "note": "Formed across the Cauvery River, regulating Delta irrigation."}
     ]
 
     print("2. Reading SAC Waterbodies GeoJSON (64,493 features)...")
@@ -175,7 +165,6 @@ def main():
     total_count = len(raw_features)
     print(f"Total features to process: {total_count}")
 
-    # Build dictionaries for compact encoding
     type_list = [
         'Tank/Pond',
         'Lake/Pond',
@@ -235,7 +224,19 @@ def main():
         veg = props.get('aqveg') or 'No'
         veg_idx = 1 if veg == 'Yes' else 0
 
-        name = (props.get('wetname') or '').strip()
+        # DATA INTEGRITY: ONLY use the authentic 'wetname' from the source file!
+        raw_wetname = (props.get('wetname') or '').strip()
+        source_name = raw_wetname # Pure, authentic name from SAC source
+
+        # Check for proximity to external historical landmark (purely for educational context note)
+        context_note = ""
+        for km in historical_landmarks:
+            dlat = (km['lat'] - lat) * 111.0
+            dlon = (km['lon'] - lon) * 111.0 * math.cos(math.radians(lat))
+            dist_km = math.sqrt(dlat*dlat + dlon*dlon)
+            if dist_km < 2.0 and area_ha > 30.0:
+                context_note = f"Located in proximity to {km['ref_name']}. {km['note']}"
+                break
 
         # Spatial lookup with bbox pre-filter
         matched_dist = None
@@ -258,17 +259,6 @@ def main():
 
         dist_name = matched_dist['name']
         dist_idx = district_to_idx.get(dist_name, 0)
-
-        # Check if near known landmarks to enrich name
-        if not name:
-            for km in known_landmarks:
-                if km['district'] == dist_name or abs(km['lat'] - lat) < 0.05:
-                    dlat = (km['lat'] - lat) * 111.0
-                    dlon = (km['lon'] - lon) * 111.0 * math.cos(math.radians(lat))
-                    dist_km = math.sqrt(dlat*dlat + dlon*dlon)
-                    if dist_km < 1.5 and area_ha > 50.0:
-                        name = km['name']
-                        break
 
         # Update district stats
         d_stats = matched_dist['stats']
@@ -303,7 +293,7 @@ def main():
         if area_ha > d_stats['largest_waterbody']['area_ha']:
             d_stats['largest_waterbody'] = {
                 'id': fid,
-                'name': name or f"{l_iii} #{fid}",
+                'name': source_name,
                 'area_ha': round(area_ha, 2),
                 'lat': round(lat, 5),
                 'lon': round(lon, 5),
@@ -327,7 +317,7 @@ def main():
         else:
             state_stats['vegetation']['NA'] += 1
 
-        # Compact record: [id, round(lat, 5), round(lon, 5), round(area_ha, 2), type_idx, dist_idx, turb_idx, veg_idx, name]
+        # Compact record: [id, round(lat, 5), round(lon, 5), round(area_ha, 2), type_idx, dist_idx, turb_idx, veg_idx, source_name]
         all_points_compact.append([
             fid,
             round(lat, 5),
@@ -337,11 +327,11 @@ def main():
             dist_idx,
             turb_idx,
             veg_idx,
-            name
+            source_name
         ])
 
         # Major waterbodies collection (> 25 hectares OR reservoirs OR named)
-        if area_ha >= 25.0 or l_iii in ('Reservoir/Barrage', 'Lake/Pond', 'Lagoon') or bool(name):
+        if area_ha >= 25.0 or l_iii in ('Reservoir/Barrage', 'Lake/Pond', 'Lagoon') or bool(source_name):
             major_features.append({
                 "type": "Feature",
                 "id": fid,
@@ -351,7 +341,7 @@ def main():
                 },
                 "properties": {
                     "id": fid,
-                    "name": name if name else f"{l_iii} #{fid}",
+                    "name": source_name,
                     "type": l_iii,
                     "classification": l_ii,
                     "area_ha": round(area_ha, 2),
@@ -360,7 +350,8 @@ def main():
                     "vegetation": veg,
                     "lat": round(lat, 5),
                     "long": round(lon, 5),
-                    "source": "SAC / NWIC Hydrological Layer"
+                    "source": "Space Applications Centre (SAC), ISRO / NWIC",
+                    "historical_context": context_note
                 }
             })
 
@@ -403,7 +394,7 @@ def main():
                 "man_made_pct": man_made_pct,
                 "turbidity_high_pct": turb_high_pct,
                 "veg_pct": veg_pct,
-                "largest_waterbody_name": st['largest_waterbody']['name'],
+                "largest_waterbody_id": st['largest_waterbody']['id'],
                 "largest_waterbody_ha": st['largest_waterbody']['area_ha']
             },
             "geometry": d['geom']
@@ -412,6 +403,10 @@ def main():
     districts_geojson = {
         "type": "FeatureCollection",
         "name": "TamilNadu_Districts_Waterbodies",
+        "metadata": {
+            "source": "Census of India Boundary Cartography with Aggregated SAC ISRO Statistics",
+            "state": "Tamil Nadu"
+        },
         "features": district_features
     }
 
@@ -443,6 +438,10 @@ def main():
             "state": "Tamil Nadu",
             "total_count": len(all_points_compact),
             "schema": ["id", "lat", "lon", "area_ha", "type_idx", "district_idx", "turb_idx", "veg_idx", "name"],
+            "data_provenance": {
+                "source_attributes": ["id", "lat", "lon", "area_ha", "type", "turbidity", "vegetation", "name"],
+                "derived_attributes": ["district (derived via point-in-polygon overlay against Census district boundaries)"]
+            },
             "generated_at": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
         },
         "dictionaries": {
@@ -460,7 +459,10 @@ def main():
     print("7. Writing public/data/sample_import.geojson...")
     sample_import = {
         "type": "FeatureCollection",
-        "name": "Sample_Temple_Tanks_and_Eris",
+        "name": "Sample_Tamil_Nadu_Waterbodies",
+        "metadata": {
+            "description": "Verified sample of 50 waterbodies from SAC ISRO inventory for import testing"
+        },
         "features": major_features[:50]
     }
     with open(os.path.join(out_dir, 'sample_import.geojson'), 'w', encoding='utf-8') as f:
@@ -472,6 +474,7 @@ def main():
     state_stats['total_area_sqkm'] = round(state_stats['total_area_ha'] / 100.0, 1)
     state_stats['data_source'] = "Space Applications Centre (SAC), ISRO / NWIC Hydrological Layer (SAC N)"
     state_stats['citation'] = "National Wetland Inventory and Assessment (NWIA), Space Applications Centre, ISRO & National Water Informatics Centre (NWIC)"
+    state_stats['district_derivation'] = "Derived via spatial point-in-polygon overlay of WGS84 coordinates against Survey of India / Census 2011 Tamil Nadu district boundaries."
     state_stats['state'] = "Tamil Nadu"
 
     # Sort districts by count
@@ -482,10 +485,9 @@ def main():
     )
     state_stats['rankings_by_count'] = sorted_by_count
 
-    # Historical overview
     state_stats['historical_context'] = {
         "tradition": "Eri Cascading System",
-        "antiquity": "1,000+ years (Pallava, Chola, and Pandya dynasties)",
+        "antiquity": "Over 1,000 years (documented across Pallava, Chola, and Pandya epigraphy)",
         "hydrological_mechanism": "Cascading tanks where runoff from upper ridge tanks overflows into downstream tanks via supply channels (Varathu Vaikkal) and surplus weirs (Kalingu), creating an interconnected hydrological chain.",
         "man_made_dominance": f"{round((state_stats['levels_ii']['Man-made'] / total_count) * 100, 1)}% of all recorded water bodies in Tamil Nadu are man-made tanks, reflecting an extraordinary community-engineered rainwater harvesting legacy.",
         "top_eri_districts": [d['district'] for d in sorted_by_count[:5]]

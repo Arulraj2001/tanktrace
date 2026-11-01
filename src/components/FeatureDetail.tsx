@@ -7,7 +7,8 @@ import {
   Copy, 
   Check, 
   Droplet, 
-  ShieldCheck 
+  ShieldCheck,
+  Info
 } from 'lucide-react';
 
 interface FeatureDetailProps {
@@ -35,6 +36,7 @@ export const FeatureDetail: React.FC<FeatureDetailProps> = ({
   const areaHa = waterbody.area_ha || 0;
   const areaAcres = (areaHa * 2.47105).toFixed(1);
   const areaSqKm = (areaHa / 100.0).toFixed(3);
+  const hasOfficialName = Boolean(waterbody.name && waterbody.name.trim().length > 0);
 
   return (
     <div className="absolute bottom-6 right-6 z-20 w-84 md:w-96 bg-slate-900/95 backdrop-blur-md border border-slate-700/80 rounded-2xl shadow-2xl p-5 text-white animate-in fade-in slide-in-from-bottom-4 duration-200">
@@ -46,9 +48,18 @@ export const FeatureDetail: React.FC<FeatureDetailProps> = ({
             <span>{waterbody.type}</span>
             <span className="text-slate-600">•</span>
             <span className="text-slate-400 font-normal">#{waterbody.id}</span>
+            {hasOfficialName ? (
+              <span className="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800/80 px-1.5 py-0.2 rounded font-medium ml-1">
+                Named in SAC Source
+              </span>
+            ) : (
+              <span className="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.2 rounded font-medium ml-1">
+                Feature ID
+              </span>
+            )}
           </div>
           <h3 className="text-base font-bold text-slate-100 leading-snug">
-            {waterbody.name || `${waterbody.type} #${waterbody.id}`}
+            {hasOfficialName ? waterbody.name : `${waterbody.type} #${waterbody.id}`}
           </h3>
         </div>
         <button
@@ -67,7 +78,9 @@ export const FeatureDetail: React.FC<FeatureDetailProps> = ({
           <div className="flex items-center gap-2">
             <MapPin className="w-4 h-4 text-sky-400 flex-shrink-0" />
             <div>
-              <div className="text-[10px] text-slate-400 uppercase tracking-wider">District</div>
+              <div className="text-[10px] text-slate-400 uppercase tracking-wider">
+                District <span className="text-slate-500 font-normal">(Spatial Join)</span>
+              </div>
               <div className="font-semibold text-slate-200">{waterbody.district}</div>
             </div>
           </div>
@@ -83,7 +96,7 @@ export const FeatureDetail: React.FC<FeatureDetailProps> = ({
         {/* Surface Area Breakdown */}
         <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
           <div className="text-[10px] text-slate-400 uppercase tracking-wider mb-1.5">
-            Verified Surface Water Area
+            Verified Surface Water Area <span className="text-slate-500 font-normal">(SAC Source)</span>
           </div>
           <div className="grid grid-cols-3 gap-2 text-center">
             <div className="bg-slate-900/80 p-1.5 rounded-lg border border-slate-800">
@@ -104,11 +117,11 @@ export const FeatureDetail: React.FC<FeatureDetailProps> = ({
         {/* Hydrological Attributes */}
         <div className="grid grid-cols-2 gap-2 text-[11px]">
           <div className="bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80">
-            <span className="text-[10px] text-slate-400 block">Classification</span>
+            <span className="text-[10px] text-slate-400 block">Classification (Level II)</span>
             <span className="font-semibold text-slate-200">{waterbody.classification}</span>
           </div>
           <div className="bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80">
-            <span className="text-[10px] text-slate-400 block">Turbidity</span>
+            <span className="text-[10px] text-slate-400 block">Turbidity State</span>
             <span className={`font-semibold ${
               waterbody.turbidity === 'High' ? 'text-amber-400' :
               waterbody.turbidity === 'Moderate' ? 'text-sky-300' : 'text-emerald-400'
@@ -126,7 +139,7 @@ export const FeatureDetail: React.FC<FeatureDetailProps> = ({
             </span>
           </div>
           <div className="bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80">
-            <span className="text-[10px] text-slate-400 block">Coordinates (WGS84)</span>
+            <span className="text-[10px] text-slate-400 block">WGS84 Coordinates</span>
             <div className="flex items-center justify-between">
               <span className="font-mono text-[10px] text-slate-300">
                 {waterbody.lat.toFixed(4)}, {waterbody.long.toFixed(4)}
@@ -142,8 +155,19 @@ export const FeatureDetail: React.FC<FeatureDetailProps> = ({
           </div>
         </div>
 
+        {/* Historical Context Note if present */}
+        {waterbody.historical_note && (
+          <div className="bg-sky-950/30 border border-sky-900/40 rounded-xl p-2.5 text-[11px] text-slate-300">
+            <div className="flex items-center gap-1 text-sky-400 font-semibold mb-0.5">
+              <Info className="w-3.5 h-3.5" />
+              <span>Historical Geographic Context</span>
+            </div>
+            <div>{waterbody.historical_note}</div>
+          </div>
+        )}
+
         {/* Data Source Footnote */}
-        <div className="flex items-center gap-1.5 text-[10px] text-slate-400 pt-1">
+        <div className="flex items-center gap-1.5 text-[10px] text-slate-400 pt-1 border-t border-slate-800/60">
           <ShieldCheck className="w-3.5 h-3.5 text-sky-400 flex-shrink-0" />
           <span>Source: {waterbody.source}</span>
         </div>

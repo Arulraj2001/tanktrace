@@ -55,10 +55,15 @@ TankTrace integrates three core AWS services into its architecture:
 
 ---
 
-### 4. What the Data Reveals
-- **696,538 Hectares of Water Surface:** Equivalent to nearly 7,000 square kilometers of water storage across Tamil Nadu.
+### 4. What the Data Reveals & Provenance Audit
+- **696,538 Hectares of Water Surface:** Equivalent to nearly 7,000 square kilometers of water storage across Tamil Nadu (directly verified from SAC ISRO `area_ha`).
 - **97.1% Man-Made:** 62,639 out of 64,493 water bodies are man-made tanks, disproving the misconception that Tamil Nadu's water bodies are purely natural lakes.
 - **Pudukkottai & Sivaganga Lead the State:** Pudukkottai has 6,793 water bodies (6,693 eris), and Sivaganga has 5,659 (100% man-made).
+- **Data Provenance Transparency:**
+  - *Source-Backed:* Feature count (64,493), coordinates, surface area, classification levels I/II/III, turbidity states, aquatic vegetation, and official names (13 features).
+  - *Derived:* District assignments (computed via point-in-polygon spatial join against Census 2011 district boundary polygons).
+  - *Contextual:* Historical epigraphical context regarding dynastic tank cascades (*Kalingu*, *Varathu Vaikkal*).
+  - *Non-Fabrication Standard:* Zero synthetic drought risk or groundwater stress metrics were created.
 
 ---
 
@@ -89,3 +94,4 @@ git push -u origin main
 - Integrating the **Registry of Open Data on AWS** (Sentinel-2 and Landsat imagery) to track real-time seasonal water level fluctuations and surface area changes over time.
 - Digitizing micro-canal networks (*Varathu Vaikkal*) connecting individual tank cascades.
 - Crowdsourced lake restoration tracking for local civic and water stewardship groups.
+

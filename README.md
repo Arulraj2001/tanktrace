@@ -226,7 +226,23 @@ frontend:
 
 ---
 
-## 📚 Data Source Attribution & License
+## 🔬 Data Provenance & Scientific Integrity Audit
+
+In compliance with strict data integrity standards, every attribute and metric in TankTrace has been audited and categorized:
+
+| Attribute / Finding | Provenance Classification | Method / Source Details |
+|---|---|---|
+| **Feature Count (64,493)** | **Source-Backed** | Direct from Space Applications Centre (SAC), ISRO / NWIC GeoJSON (`wb_sac_tn.GeoJSON`). |
+| **Geographic Coordinates (Lat, Long)** | **Source-Backed** | Direct from SAC ISRO point records (WGS84 decimal degrees). |
+| **Total Water Surface Area (696,537.9 ha)** | **Source-Backed** | Sum of raw `area_ha` attributes across all 64,493 features (~6,965.4 km²). |
+| **Classification (Level I, II, III)** | **Source-Backed** | SAC classification: 97.12% (62,639) Man-made, 95.6% (61,655) Traditional Tanks/Ponds (*Eris*). |
+| **Turbidity & Aquatic Vegetation** | **Source-Backed** | Satellite-derived surface turbidity (High: 37,599, Moderate: 25,011, Low: 1,772) and vegetation (`aqveg`: Yes: 3,102, No: 61,281). |
+| **Official Feature Names** | **Source-Backed** | Exactly 13 major structures carry an official `wetname` in the SAC inventory (e.g., *Mettur Dam*, *Sholaiar Reservoir*, *Thamraparni Reservoir*, *Parambikulam Reservoir*). All other 64,480 features are identified by official unique ID (`#ID`). |
+| **District Delineation & Rankings** | **Derived (Spatial Overlay)** | Raw SAC records are attributed at the state level (`state: "Tamil Nadu"`). District names and counts are derived via point-in-polygon spatial join against Census of India district polygons. |
+| **Historical & Dynastic References** | **Educational Context** | References to ancient tank cascades, Pallava/Chola/Pandya epigraphy, and structures (*Kalingu*, *Varathu Vaikkal*, *Madagu*) are historical facts from archaeological and PWD hydrological literature, explicitly distinct from raw sensor datasets. |
+| **Groundwater Stress & Drought Risk** | **Strictly Excluded** | No simulated groundwater stress values, artificial drought indices, or synthetic markers are created or claimed. |
+
+---
 
 - **Water Bodies Layer:** Space Applications Centre (SAC), Indian Space Research Organisation (ISRO) & National Water Informatics Centre (NWIC), Ministry of Jal Shakti. Published under Government Open Data policies for public hydrological assessment.
 - **District Boundaries:** Open geodata boundary extracts based on Census of India delineations.
@@ -238,3 +254,4 @@ frontend:
 
 - **Temporal Satellite Monitoring:** The current dataset captures spatial footprints and turbidity classifications from the SAC National Wetland Inventory baseline. Incorporating real-time Sentinel-2 or Landsat imagery via AWS Open Data Registry would enable seasonal water level fluctuation tracking.
 - **Micro-Canal Vectors:** While individual water body points and boundaries are mapped, many smaller earthen feeder canals (*Varathu Vaikkal*) between cascading eris are not fully digitized in state-level datasets.
+
